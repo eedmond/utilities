@@ -1,5 +1,3 @@
-$env:PSModulePath += ";D:\analog.devtools.razzle.powershell"
-
 function gs
 {
     git status
@@ -15,6 +13,11 @@ function gf
     git fetch --prune
 }
 
+function gfd
+{
+    git fetch --prune --depth=1
+}
+
 function gr
 {
     git reset --hard $args
@@ -28,6 +31,11 @@ function gdh
 function gro
 {
     git reset --hard origin/$args
+}
+
+function grc
+{
+    git rebase --continue
 }
 
 function gco
@@ -70,9 +78,19 @@ function pshf
     git push -f origin user/ericed/$args
 }
 
+function gpsh
+{
+    git push origin HEAD:refs/for/main
+}
+
 function cmt
 {
     git commit -m $args
+}
+
+function amd
+{
+    git commit --amend --no-edit
 }
 
 function sqsh
@@ -95,31 +113,19 @@ function reset-lfs
     git checkout .
 }
 
-function Patch-SettingsEnvironment
-{
-    sfpcopyd $env:_NTTREE\analog\bin\settings\settingsenvironment.dll c:\windows\system32\settingsenvironment.dll
-}
-
-function Patch-HoloSettingsHandlersResources
-{
-    sfpcopyd $env:_NTTREE\loc\src\bin\SystemSettings_Holographic_HandlerResources\Windows.UI.SettingsHandlers-nt\resources.pri c:\windows\systemresources\windows.ui.settingshandlers-nt\pris\Windows.UI.SettingsHandlers-nt.en-US.pri
-    sfpcopyd $env:_NTTREE\SystemSettings_Holographic_HandlerResources\Windows.UI.SettingsHandlers-nt\neutral.pri c:\windows\systemresources\windows.ui.settingshandlers-nt\Windows.UI.SettingsHandlers-nt.pri
-}
-
-function Patch-HoloSettingsResources
-{
-    sfpcopyd $env:_NTTREE\loc\src\bin\holographicsystemsettings\resources.pri c:\windows\SystemApps\HolographicSystemSettings_cw5n1h2txyewy\pris\resources.en-US.pri
-    sfpcopyd $env:_NTTREE\HolographicSystemSettings\neutral.pri c:\windows\SystemApps\HolographicSystemSettings_cw5n1h2txyewy\resources.pri
-}
-
 function Open-Bin
 {
-    start $env:_NTTREE
+    Start-Process $env:_NTTREE
+}
+
+function karto
+{
+    Push-Location $env:USERPROFILE\documents\karto-unreal
 }
 
 function Unity
 {
-    $vals = (Get-CimInstance Win32_Process -Filter "name = 'Unity.exe'" | select ProcessId, CommandLine)
+    $vals = (Get-CimInstance Win32_Process -Filter "name = 'Unity.exe'" | Select-Object ProcessId, CommandLine)
     foreach ($val in $vals)
     {
         if ($val.CommandLine -match '.* -projectpath\s([^\s]*)\s.*')
@@ -127,4 +133,11 @@ function Unity
             Write-Host "$($val.ProcessId): $($matches[1])"
         }
     }
+}
+
+function bpdiff
+{
+    karto
+    .\bin\windows\bazel run //repoctl -- bpdiff $args[0] $args[1]
+    Pop-Location
 }
