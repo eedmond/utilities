@@ -18,11 +18,13 @@ function gfd
     git fetch --prune --depth=1
 }
 
+# Works standalone as "gr" no args or with files "gr HEAD~1"
 function gr
 {
     git reset --hard $args
 }
 
+# Works standalone as "gdh" no args or with files "gdh file1.txt"
 function gdh
 {
     git diff HEAD -- $args
@@ -56,11 +58,6 @@ function ga
 function br
 {
     git remote show origin
-}
-
-function rb
-{
-    git rebase --onto origin/$args[0] HEAD~$args[1]
 }
 
 function lg
