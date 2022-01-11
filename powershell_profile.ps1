@@ -52,6 +52,11 @@ function nb
 
 function ga
 {
+    git add -- $args
+}
+
+function gaa
+{
     git add -A
 }
 
@@ -94,6 +99,12 @@ function sqsh
 {
     git reset --soft $args[0]
     git commit -m $args[1]
+}
+
+# Works standalone as "gsu" no args or with args "gsu --init"
+function gsu
+{
+    git submodule update $args
 }
 
 function web
