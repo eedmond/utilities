@@ -1,0 +1,22 @@
+[user]
+	name = Eric Edmond
+	email = ericed3022@gmail.com
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h %Cblue%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+	cmt = commit -m
+	rh = reset --hard
+	f = fetch --prune
+	s = status
+	ss = status --ignore-submodules
+	rho = reset --hard origin/master
+	a = add
+	aa = add -A
+	dh = diff HEAD
+	amd = commit --amend --no-edit
+	cfg = config --list
+	rc = rebase --continue
+	nb = "!f() { git checkout -b user/ericed/$1; }; f"
+	db = "!f() { git branch -D user/ericed/$1; }; f"
+	co = "!f() { git checkout user/ericed/$1; }; f"
+	pb = "!f() { git push -u origin user/ericed/$1; }; f"
+	fp = push -f
