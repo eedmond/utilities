@@ -19,4 +19,22 @@
 	db = "!f() { git branch -D user/ericed/$1; }; f"
 	co = "!f() { git checkout user/ericed/$1; }; f"
 	pb = "!f() { git push -u origin user/ericed/$1; }; f"
+	pf = "!f() { git push -f origin user/ericed/$1; }; f"
 	fp = push -f
+	on = "!f() { git rebase --onto user/ericed/$1 HEAD~1; }; f"
+[log]
+	follow = true
+[rebase]
+	updateRefs = true
+[diff]
+	tool = vscode
+[merge]
+	tool = vscode
+[mergetool "bc"]
+	trustExitCode = true
+[mergetool]
+	keepBackup = false
+[mergetool "vscode"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
