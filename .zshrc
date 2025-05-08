@@ -1,6 +1,9 @@
 parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
 }
+function grt() {
+    git rev-parse --show-toplevel
+}
 COLOR_DEF='%f'
 COLOR_USR='%F{243}'
 COLOR_DIR='%F{197}'
@@ -14,3 +17,7 @@ export PROMPT='${COLOR_USR}%n@%M ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)$
 #### Added by green-restore install-tools
 autoload -Uz compinit && compinit
 ####
+
+alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
+alias gohome='(){ pushd ~/Developer ; }'
+alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
