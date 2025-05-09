@@ -21,3 +21,7 @@ autoload -Uz compinit && compinit
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
 alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
+
+bindkey "^X\\x7f" backward-kill-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
