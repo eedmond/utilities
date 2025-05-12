@@ -17,3 +17,4 @@
 - cp .zshrc ~/.zshrc
 - cp .gitconfig ~/.gitconfig
     - Change any git config settings needed like default branch names in ~/.gitconfig
+- cp .tmux.conf ~/.tmux.conf
