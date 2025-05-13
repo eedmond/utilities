@@ -10,10 +10,12 @@
     - Open the folder and double click a font and install it
 
 # Neovim
-- git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}”/nvim
+- `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}”/nvim`
 - I’m now trying:
     - https://github.com/wojciech-kulik/ios-dev-starter-nvim
         - Had to run ":XcodebuildSetup"
+- MarkdownPreview setup:
+    - After installing the plugin, open a markdown file and run `:call mkdp#util#install()`
 
 # iTerm2
 - Install https://iterm2.com/downloads.html
