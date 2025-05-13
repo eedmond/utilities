@@ -1,14 +1,43 @@
-# Neovim Setup
+# Mac Setup
 
+- Convert Caps Lock to ctrl
+    - Settings -> Keyboard -> Shortcuts -> Modifier Keys
+- Change setting to make each display part of the same desktop
 - brew install nvim
 - brew install ripgrep
 - brew install xclip
-- Install https://iterm2.com/downloads.html
-    - v3.4.x not v3.5.x
-    - Then https://stackoverflow.com/a/37720002
 - Download https://www.nerdfonts.com/font-downloads
     - Open the folder and double click a font and install it
-- git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+# Neovim
+- git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}”/nvim
+- I’m now trying:
+    - https://github.com/wojciech-kulik/ios-dev-starter-nvim
+        - Had to run ":XcodebuildSetup"
+
+# iTerm2
+- Install https://iterm2.com/downloads.html
+    - v3.4.x not v3.5.x
+- Set up shortcuts https://stackoverflow.com/a/37720002
+    - Remove alt+left and alt+right in Settings -> Profiles -> Keys -> Key Mappings
+    - system settings > keyboard > keyboard shortcuts > input sources > uncheck both of those.
+- In Settings, use the nerdfonts that was installed
+- Download catppuccin theme
+    - https://github.com/catppuccin/iterm/blob/main/colors/catppuccin-mocha.itermcolors
+    - Set it under Settings -> Profiles -> Colors -> Presets
+
+# tmux
+- Learning it: https://www.youtube.com/watch?v=niuOc02Rvrc&ab_channel=typecraft
+- Setup:
+    - https://www.youtube.com/watch?v=jaI3Hcw-ZaA&ab_channel=typecraft
+    - https://www.youtube.com/watch?v=DzNmUNvnB04&ab_channel=DreamsofCode
+- I use ctrl+space (ctrl == caps lock) for leader
+- TPM
+    - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+- Color theme setup:
+    - https://github.com/catppuccin/tmux
+        - mkdir -p ~/.config/tmux/plugins/catppuccin
+        - git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 
 # Utilities Setup
 
