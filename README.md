@@ -23,6 +23,7 @@
 - Set up shortcuts https://stackoverflow.com/a/37720002
     - Remove alt+left and alt+right in Settings -> Profiles -> Keys -> Key Mappings
     - system settings > keyboard > keyboard shortcuts > input sources > uncheck both of those.
+    - `Settings -> General -> Selection` check `Applications in terminal may access clipboard`
 - In Settings, use the nerdfonts that was installed
 - Download catppuccin theme
     - https://github.com/catppuccin/iterm/blob/main/colors/catppuccin-mocha.itermcolors
