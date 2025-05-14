@@ -14,10 +14,6 @@ NEWLINE=$'\n'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}%n@%M ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%% '
 
-#### Added by green-restore install-tools
-autoload -Uz compinit && compinit
-####
-
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
 alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
