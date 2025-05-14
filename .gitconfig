@@ -25,7 +25,8 @@
 	fp = push -f
 	on = "!f() { git rebase --onto user/ericed/$1 HEAD~1; }; f"
 	wt = "!f() { git worktree add ~/Developer/worktrees/$ user/ericed/$1; }; f"
-	dw = "!f() { git worktree remove $1; }; f"
+	nwt = "!f() { git worktree add ~/Developer/worktrees/$ -b user/ericed/$1; }; f"
+	dwt = "!f() { git worktree remove $1; }; f"
 	wl = worktree list
 [log]
 	follow = true
