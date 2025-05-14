@@ -3,11 +3,13 @@
 - Convert Caps Lock to ctrl
     - Settings -> Keyboard -> Shortcuts -> Modifier Keys
 - Change setting to make each display part of the same desktop
-- brew install nvim
-- brew install ripgrep
-- brew install xclip
 - Download https://www.nerdfonts.com/font-downloads
     - Open the folder and double click a font and install it
+```shell
+brew install nvim
+brew install ripgrep
+brew install xclip
+```
 
 # Neovim
 - `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}”/nvim`
@@ -45,10 +47,10 @@
         - git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 
 # Utilities Setup
-
-- git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
-- cd ~/Developer/utilities
-- cp .zshrc ~/.zshrc
-- cp .gitconfig ~/.gitconfig
-    - Change any git config settings needed like default branch names in ~/.gitconfig
-- cp .tmux.conf ~/.tmux.conf
+```shell
+git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
+cd ~/Developer/utilities
+cp .zshrc ~/.zshrc
+cp .gitconfig ~/.gitconfig
+cp .tmux.conf ~/.tmux.conf
+```
