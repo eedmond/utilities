@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+# This tool checks all staged files and checks for modification of lines
+# with [Automation]. Promps the user to confirm this is an intentional change
+# to avoid accidental changes to log lines that automation depends on.
+#
+
+# Set -e to exit immediately if a command fails.
+set -e
+
+# Enable keyboard input to get user confirmation.
+exec < /dev/tty
+
+# Get the list of files that have been staged for commit.
+staged_files=$(git diff --cached --name-status)
+
+# If no files are staged, exit gracefully.
+if [ -z "$staged_files" ]; then
+    echo "No files staged for commit. Skipping pre-commit hook."
+    exit 0
+fi
+
+# Define the pattern to match (modified lines containing "[Automation]").
+automation_log_pattern='^-.*\[Automation\]'
+
+# Iterate over each staged file.
+while IFS= read -r file; do
+    # Handle renamed files.
+    old_path=$(echo "$file" | awk '{print $2}')
+    new_path=$(echo "$file" | awk '{print $2}')
+    if [[ "$file" == R* ]]; then
+        new_path=$(echo "$file" | awk '{print $3}')
+    fi
+
+    # Compare the staged version with HEAD.
+    diff_output=$(git diff --cached -- "$old_path" "$new_path")
+
+    # Use grep to check for any changes in the matching pattern.
+    if echo "$diff_output" | grep -E "$automation_log_pattern"; then
+        echo "Warning: Changing a line with [Automation] in '$file'."
+        read -u 1 -p "Ensure this change is intentional (y/n/a):" confirmation
+        case "$confirmation" in
+            [Yy] )
+                continue;;
+            [Aa] )
+                break;;
+            *)
+                echo "Change not intentional. Exiting without committing."
+                exit 1;;
+        esac
+    fi
+done <<< "$staged_files"
+
+# If no violations are found, the commit is allowed.
+exit 0
