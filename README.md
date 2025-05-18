@@ -12,7 +12,7 @@ brew install xclip
 ```
 
 # Neovim
-- `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}”/nvim`
+- `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim`
 - I’m now trying:
     - https://github.com/wojciech-kulik/ios-dev-starter-nvim
         - Had to run ":XcodebuildSetup"
