@@ -10,6 +10,15 @@ brew install nvim
 brew install ripgrep
 brew install xclip
 ```
+- On WSL:
+```shell
+sudo apt-get install build-essential
+```
+    - Also, edit /etc/wsl.conf to include
+```
+[user]
+default=eedmond
+```
 
 # Neovim
 - `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim`
