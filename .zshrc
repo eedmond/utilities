@@ -21,3 +21,7 @@ alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
 bindkey "^X\\x7f" backward-kill-line
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
+
+# Bash-like navigation
+autoload -U select-word-style
+select-word-style bash
