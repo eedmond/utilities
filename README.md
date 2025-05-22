@@ -55,6 +55,10 @@ default=eedmond
     - https://github.com/catppuccin/tmux
         - mkdir -p ~/.config/tmux/plugins/catppuccin
         - git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+- Connecting to a remote machine's tmux
+```shell
+ssh username@{ip/device} -t "/usr/local/bin/tmux" a
+```
 
 # Utilities Setup
 ```shell
