@@ -1,4 +1,4 @@
-# Mac Setup
+# Mac/Linux/WSL Setup
 
 - Convert Caps Lock to ctrl
     - Settings -> Keyboard -> Shortcuts -> Modifier Keys
@@ -10,11 +10,12 @@ brew install nvim
 brew install ripgrep
 brew install xclip
 ```
-- On WSL:
+
+#### On WSL:
 ```shell
 sudo apt-get install build-essential
 ```
-    - Also, edit /etc/wsl.conf to include
+Also, edit `/etc/wsl.conf` to include:
 ```
 [user]
 default=eedmond
