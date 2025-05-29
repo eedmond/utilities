@@ -14,9 +14,6 @@ NEWLINE=$'\n'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}%n@%M ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%% '
 
-# Find homebrew
-export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
 alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
@@ -61,6 +58,3 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
