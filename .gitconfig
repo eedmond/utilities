@@ -32,18 +32,17 @@
 	follow = true
 [rebase]
 	updateRefs = true
-[diff]
-	tool = vscode
 [merge]
-	tool = vscode
+	tool = diffview
 [mergetool]
+    prompt = false
 	keepBackup = false
-[mergetool "vscode"]
-	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[mergetool "diffview"]
+	cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 [diff]
-	tool = vscode
-[difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+	tool = diffview
+[difftool "diffview"]
+	cmd = nvim -c "DiffviewOpen"
 [pull]
 	rebase = true
 [core]
