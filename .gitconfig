@@ -49,3 +49,5 @@
 	editor = nvim -f
 [push]
 	autoSetupRemote = true
+[rerere]
+    enabled = true
