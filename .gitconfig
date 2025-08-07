@@ -36,7 +36,7 @@
 	tool = vscode
 	conflictstyle = zdiff3
 [mergetool]
-    prompt = false
+	prompt = false
 	keepBackup = false
 [mergetool "vscode"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
