@@ -21,8 +21,7 @@
 	dba = "!f() { git branch --merged origin/main | grep -v '^[ *]*main$' | xargs -n1 -r git branch -d; }; f"
 	co = "!f() { git checkout user/ericed/$1; }; f"
 	pb = "!f() { git push -u origin user/ericed/$1; }; f"
-	pf = "!f() { git push -f origin user/ericed/$1; }; f"
-	fp = push -f
+	pf = push --force-with-lease
 	on = "!f() { git rebase --onto user/ericed/$1 HEAD~1; }; f"
 	wt = "!f() { git worktree add ~/Developer/worktrees/$ user/ericed/$1; }; f"
 	nwt = "!f() { git worktree add ~/Developer/worktrees/$ -b user/ericed/$1; }; f"
