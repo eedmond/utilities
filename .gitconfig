@@ -3,6 +3,7 @@
 	email = ericed3022@gmail.com
 [alias]
 	lg = log --graph --pretty=format:'%Cred%h %Cblue%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+	mrgs = lg --first-parent --merges
 	cmt = commit -m
 	rh = reset --hard
 	f = fetch --prune
