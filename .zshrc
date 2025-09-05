@@ -16,7 +16,57 @@ export PROMPT='${COLOR_USR}%n@%M ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)$
 
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
-alias xcode='(){ xed $(grt)/src/Project.xcodeproj ; }'
+function xcopen() {
+    # 1. Find the root of the git repository.
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+    if [[ -z "$git_root" ]]; then
+        echo "Error: Not inside a git repository." >&2
+        return 1
+    fi
+
+    # 2. Find all project/workspace files, filtering out unwanted internal ones.
+    local files=()
+    while IFS= read -r -d $'\0' file; do
+        # We check if the path contains ".xcodeproj/" which indicates it's inside another project.
+        if [[ "$file" != *".xcodeproj/"* ]]; then
+            files+=("$file")
+        fi
+    done < <(find "$git_root" -path "$git_root/.git" -prune -o \( -name "*.xcodeproj" -o -name "*.xcworkspace" \) -print0)
+
+    local count=${#files[@]}
+
+    # 3. Handle the different cases.
+    if [[ $count -eq 0 ]]; then
+        echo "No .xcodeproj or .xcworkspace found in this project." >&2
+        return 1
+    elif [[ $count -eq 1 ]]; then
+        echo "Opening the only project found: ${files[1]##*/}"
+        xed "${files[1]}"
+    else
+        # 4. If multiple projects are found, prompt the user.
+        echo "Multiple Xcode projects/workspaces found. Please choose one:"
+        for i in {1..$count}; do
+            printf "  %d) %s\n" "$i" "${files[i]#$git_root/}"
+        done
+
+        local choice
+        while true; do
+            printf "Enter number (or Ctrl+C to cancel): "
+            read -r choice
+
+            if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice >= 1 && choice <= count )); then
+                local selected_file="${files[choice]}"
+                echo "Opening ${selected_file##*/}..."
+                xed "$selected_file"
+                break
+            else
+                echo "Invalid choice. Please enter a number between 1 and $count."
+            fi
+        done
+    fi
+}
 
 bindkey "^X\\x7f" backward-kill-line
 bindkey "\e[H" beginning-of-line
