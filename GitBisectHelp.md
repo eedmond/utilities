@@ -1,7 +1,7 @@
 # Example -- Find first commit that *removes* a given string
 
 ```bash
-# HEAD is bad, 100 commits ago is known good.
+# HEAD is bad (missing the line), 100 commits ago is known good (contains the line).
 git bisect start HEAD HEAD~100 --
 
 # Search for the specified string in the specified file

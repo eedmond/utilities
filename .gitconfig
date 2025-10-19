@@ -3,6 +3,7 @@
 	email = ericed3022@gmail.com
 [alias]
 	lg = log --graph --pretty=format:'%Cred%h %Cblue%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+	mrgs = lg --first-parent --merges
 	cmt = commit -m
 	rh = reset --hard
 	f = fetch --prune
@@ -21,8 +22,7 @@
 	dba = "!f() { git branch --merged origin/main | grep -v '^[ *]*main$' | xargs -n1 -r git branch -d; }; f"
 	co = "!f() { git checkout user/ericed/$1; }; f"
 	pb = "!f() { git push -u origin user/ericed/$1; }; f"
-	pf = "!f() { git push -f origin user/ericed/$1; }; f"
-	fp = push -f
+	pf = push --force-with-lease
 	on = "!f() { git rebase --onto user/ericed/$1 HEAD~1; }; f"
 	wt = "!f() { git worktree add ~/Developer/worktrees/$ user/ericed/$1; }; f"
 	nwt = "!f() { git worktree add ~/Developer/worktrees/$ -b user/ericed/$1; }; f"
@@ -33,17 +33,22 @@
 [rebase]
 	updateRefs = true
 [merge]
-	tool = diffview
+	tool = vscode
+	conflictstyle = zdiff3
 [mergetool]
-    prompt = false
+	prompt = false
 	keepBackup = false
-[mergetool "diffview"]
-	cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+[mergetool "vscode"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [diff]
-	tool = diffview
-[difftool "diffview"]
-	cmd = nvim -c "DiffviewOpen"
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [pull]
 	rebase = true
 [core]
 	editor = nvim -f
+[push]
+	autoSetupRemote = true
+[rerere]
+    enabled = true
