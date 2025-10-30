@@ -51,6 +51,8 @@ default=eedmond
     - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     - tmux-resurrect
         - Amazing plugin for saving and restoring entire sessions! Just <leader>+C-s to save and <leader>+C-r to restore.
+    - Install plugins (one-time setup)
+        - Run `ctrl+space I`
 - Color theme setup:
     - https://github.com/catppuccin/tmux
         - mkdir -p ~/.config/tmux/plugins/catppuccin
