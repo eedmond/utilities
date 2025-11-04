@@ -60,7 +60,7 @@
     remote = "#f38ba8" # red
 [color "diff"]
     meta = "#f9e2af bold" # yellow
-    frag = "#cba6f7" bold # mauve
+    frag = "#89b4fa bold" # blue
     old = "#f38ba8 bold" # red
     new = "#a6e3a1 bold" # green
 [color "status"]
