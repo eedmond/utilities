@@ -37,6 +37,7 @@ default=eedmond
     - system settings > keyboard > keyboard shortcuts > input sources > uncheck both of those.
     - `Settings -> General -> Selection` check `Applications in terminal may access clipboard`
 - In Settings, use the nerdfonts that was installed
+- Enable Settings -> Profiles -> Terminal -> Enable mouse reporting
 - Download catppuccin theme
     - https://github.com/catppuccin/iterm/blob/main/colors/catppuccin-mocha.itermcolors
     - Set it under Settings -> Profiles -> Colors -> Presets
