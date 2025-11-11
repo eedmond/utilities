@@ -66,4 +66,6 @@
 [color "status"]
     added = "#a6e3a1" # green
     changed = "#f38ba8" # red
+    header = "bold" # text
     untracked = "#fab387" # peach
+    unmerged = "#cba6f7" # mauve
