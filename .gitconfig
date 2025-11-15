@@ -2,7 +2,7 @@
 	name = Eric Edmond
 	email = ericed3022@gmail.com
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h %Cblue%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit
+	lg = "log --graph --pretty=format:'%C(#f38ba8)%h %C(#89b4fa)%an%Creset -%C(#f9e2af)%d%Creset %s %C(#a6e3a1)(%cr)%Creset' --abbrev-commit"
 	mrgs = lg --first-parent --merges
 	cmt = commit -m
 	rh = reset --hard
@@ -52,3 +52,20 @@
 	autoSetupRemote = true
 [rerere]
     enabled = true
+[color]
+    ui = auto
+[color "branch"]
+    current = "#a6e3a1 reverse" # green
+    local = "#89b4fa" # blue
+    remote = "#f38ba8" # red
+[color "diff"]
+    meta = "#f9e2af bold" # yellow
+    frag = "#89b4fa bold" # blue
+    old = "#f38ba8 bold" # red
+    new = "#a6e3a1 bold" # green
+[color "status"]
+    added = "#a6e3a1" # green
+    changed = "#f38ba8" # red
+    header = "bold" # text
+    untracked = "#fab387" # peach
+    unmerged = "#cba6f7" # mauve

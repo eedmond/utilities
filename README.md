@@ -37,6 +37,7 @@ default=eedmond
     - system settings > keyboard > keyboard shortcuts > input sources > uncheck both of those.
     - `Settings -> General -> Selection` check `Applications in terminal may access clipboard`
 - In Settings, use the nerdfonts that was installed
+- Enable Settings -> Profiles -> Terminal -> Enable mouse reporting
 - Download catppuccin theme
     - https://github.com/catppuccin/iterm/blob/main/colors/catppuccin-mocha.itermcolors
     - Set it under Settings -> Profiles -> Colors -> Presets
@@ -51,6 +52,8 @@ default=eedmond
     - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     - tmux-resurrect
         - Amazing plugin for saving and restoring entire sessions! Just <leader>+C-s to save and <leader>+C-r to restore.
+    - Install plugins (one-time setup)
+        - Run `ctrl+space I`
 - Color theme setup:
     - https://github.com/catppuccin/tmux
         - mkdir -p ~/.config/tmux/plugins/catppuccin
