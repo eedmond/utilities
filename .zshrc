@@ -108,3 +108,5 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
+# Export path adding neovim
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
