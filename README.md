@@ -32,6 +32,9 @@ default=eedmond
 # iTerm2
 - Install https://iterm2.com/downloads.html
     - v3.4.x not v3.5.x
+<details>
+<summary>Old manual setup:</summary>
+
 - Set up shortcuts https://stackoverflow.com/a/37720002
     - Remove alt+left and alt+right in Settings -> Profiles -> Keys -> Key Mappings
     - system settings > keyboard > keyboard shortcuts > input sources > uncheck both of those.
@@ -41,6 +44,8 @@ default=eedmond
 - Download catppuccin theme
     - https://github.com/catppuccin/iterm/blob/main/colors/catppuccin-mocha.itermcolors
     - Set it under Settings -> Profiles -> Colors -> Presets
+
+</details>
 
 # tmux
 - Learning it: https://www.youtube.com/watch?v=niuOc02Rvrc&ab_channel=typecraft
@@ -70,4 +75,5 @@ cd ~/Developer/utilities
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.gitconfig
 cp .tmux.conf ~/.tmux.conf
+cp ./iTerm2Profile.json ~/Library/Application Support/iTerm2/DynamicProfiles/
 ```
