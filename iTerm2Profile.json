@@ -182,7 +182,6 @@
     "Alpha Component" : 1,
     "Green Component" : 0.99263292551040649
   },
-  "Use Cursor Guide (Dark)" : true,
   "Ansi 15 Color (Dark)" : {
     "Red Component" : 0.99999600648880005,
     "Color Space" : "sRGB",
@@ -225,11 +224,11 @@
     "Green Component" : 0.99263292551040649
   },
   "Cursor Guide Color (Dark)" : {
-    "Red Component" : 0.19769513607025146,
-    "Color Space" : "P3",
-    "Blue Component" : 0.27710133790969849,
-    "Alpha Component" : 1,
-    "Green Component" : 0.19320386648178101
+    "Red Component" : 0.37649588016392954,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0.94099044799804688,
+    "Alpha Component" : 0.25,
+    "Green Component" : 0.80232617749205526
   },
   "Send Code When Idle" : false,
   "Ansi 6 Color" : {
