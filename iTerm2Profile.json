@@ -72,7 +72,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.26474356651306152
   },
-  "Blinking Cursor" : false,
+  "Blinking Cursor" : true,
   "Selected Text Color (Light)" : {
     "Red Component" : 0,
     "Color Space" : "sRGB",
