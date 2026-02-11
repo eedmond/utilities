@@ -1,17 +1,37 @@
 # Mac/Linux/WSL Setup
 
-- Convert Caps Lock to ctrl
-    - Settings -> Keyboard -> Shortcuts -> Modifier Keys
+## General Setup
+
+- Update Finder to show path with option + cmd + P
+- Natural scrolling setting
+    - Settings -> Mouse -> Natural scrolling
+- Keyboard settings changes:
+    - Convert Caps Lock to ctrl
+        - Settings -> Keyboard -> Shortcuts -> Modifier Keys
+    - Swap win/alt (on some keyboards)
+        - Settings -> Keyboard -> Keyboard shortcuts -> swap cmd/option keys
 - Change setting to make each display part of the same desktop
 - Download https://www.nerdfonts.com/font-downloads
+    - Using `MesloLGSNF-Regular`
     - Open the folder and double click a font and install it
 ```shell
 brew install nvim
+brew install tmux
 brew install ripgrep
 brew install xclip
 ```
+- Download Chrome
+- Install VSCode and set as mergetool
+    - `brew install --cask visual-studio-code`
+    - Preferences → Telemetry Settings, turn off
+    - Enable VS Code’s [3-way merge viewer](https://code.visualstudio.com/docs/sourcecontrol/overview#_3way-merge-editor)
+- Update Mail to only show notifications on "Alert Mail"
+    - Smart mailbox and folders should all be synced
+    - Mail Settings -> General -> Unread count -> Alert Mail
+    - Mail Settings -> General -> New message notifications -> Alert Mail
+    - System Settings -> Notifications -> enable for Mail
 
-#### On WSL:
+## On WSL:
 ```shell
 sudo apt-get install build-essential
 ```
@@ -23,17 +43,14 @@ default=eedmond
 
 # Neovim
 - `git clone git@github.com:eedmond/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim`
-- I’m now trying:
-    - https://github.com/wojciech-kulik/ios-dev-starter-nvim
-        - Had to run ":XcodebuildSetup"
+- Currently tested and working with v0.11.4 and v0.11.6
 - MarkdownPreview setup:
     - After installing the plugin, open a markdown file and run `:call mkdp#util#install()`
 
 # iTerm2
 - Install https://iterm2.com/downloads.html
-    - v3.4.x not v3.5.x
 <details>
-<summary>Old manual setup:</summary>
+<summary>Old manual setup (replaced with json profile):</summary>
 
 - Set up shortcuts https://stackoverflow.com/a/37720002
     - Remove alt+left and alt+right in Settings -> Profiles -> Keys -> Key Mappings
@@ -75,5 +92,5 @@ cd ~/Developer/utilities
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.gitconfig
 cp .tmux.conf ~/.tmux.conf
-cp ./iTerm2Profile.json ~/Library/Application Support/iTerm2/DynamicProfiles/
+cp ./iTerm2Profile.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 ```
