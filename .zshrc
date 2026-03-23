@@ -68,6 +68,21 @@ function xcopen() {
     fi
 }
 
+function fvim() {
+    local name="$1"
+    if [[ -z "$name" ]]; then
+        echo "Usage: fvim <filename>" >&2
+        return 1
+    fi
+    local file
+    file=$(find . -name "$name" -not -path '*/.git/*' | head -1)
+    if [[ -z "$file" ]]; then
+        echo "No file named '$name' found." >&2
+        return 1
+    fi
+    nvim "$file"
+}
+
 bindkey "^X\\x7f" backward-kill-line
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
