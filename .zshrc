@@ -68,6 +68,7 @@ function xcopen() {
     fi
 }
 
+# Function to combine searching recursively for a file and opening it in Neovim
 function fvim() {
     local name="$1"
     if [[ -z "$name" ]]; then
