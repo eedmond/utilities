@@ -65,10 +65,6 @@ default=eedmond
 </details>
 
 # tmux
-- Learning it: https://www.youtube.com/watch?v=niuOc02Rvrc&ab_channel=typecraft
-- Setup:
-    - https://www.youtube.com/watch?v=jaI3Hcw-ZaA&ab_channel=typecraft
-    - https://www.youtube.com/watch?v=DzNmUNvnB04&ab_channel=DreamsofCode
 - I use ctrl+space (ctrl == caps lock) for leader
 - TPM
     - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -84,6 +80,10 @@ default=eedmond
 ```shell
 ssh username@{ip/device} -t "/usr/local/bin/tmux" a
 ```
+- Learning it: https://www.youtube.com/watch?v=niuOc02Rvrc&ab_channel=typecraft
+- Setup inspiration:
+    - https://www.youtube.com/watch?v=jaI3Hcw-ZaA&ab_channel=typecraft
+    - https://www.youtube.com/watch?v=DzNmUNvnB04&ab_channel=DreamsofCode
 
 # Utilities Setup
 ```shell
