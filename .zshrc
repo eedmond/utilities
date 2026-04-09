@@ -8,11 +8,41 @@ COLOR_DEF='%f'
 COLOR_USR='%F{#6c7086}'
 COLOR_DIR='%F{#f38ba8}'
 COLOR_GIT='%F{#89b4fa}'
+COLOR_ERR='%F{#f38ba8}'
+COLOR_DIM='%F{#6c7086}'
 # About the prefixed `$`: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html#:~:text=Words%20in%20the%20form%20%22%24',by%20the%20ANSI%2DC%20standard.
 NEWLINE=$'\n'
 # Set zsh option for prompt substitution
 setopt PROMPT_SUBST
-export PROMPT='${COLOR_USR}%n@%M ${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%% '
+
+# Track command execution time
+zmodload zsh/datetime
+_cmd_start=0
+preexec() { _cmd_start=$EPOCHSECONDS }
+precmd() {
+  if (( _cmd_start > 0 )); then
+    _cmd_elapsed=$(( EPOCHSECONDS - _cmd_start ))
+    _cmd_start=0
+  else
+    _cmd_elapsed=0
+  fi
+}
+
+_fmt_elapsed() {
+  local s=$_cmd_elapsed
+  if (( s < 5 )); then
+    echo ""
+  elif (( s < 60 )); then
+    echo "${s}s "
+  elif (( s < 3600 )); then
+    echo "$(( s/60 ))m$(( s%60 ))s "
+  else
+    echo "$(( s/3600 ))h$(( (s%3600)/60 ))m "
+  fi
+}
+
+export PROMPT='${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%(?..[${COLOR_ERR}%?${COLOR_DEF}] )${COLOR_DIM}$(_fmt_elapsed)${COLOR_DEF}%% '
+export RPROMPT='${COLOR_DIM}%*${COLOR_DEF}'
 
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
