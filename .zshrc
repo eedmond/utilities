@@ -17,14 +17,14 @@ setopt PROMPT_SUBST
 
 # Track command execution time
 zmodload zsh/datetime
-_cmd_start=0
-preexec() { _cmd_start=$EPOCHSECONDS }
+_cmd_start=0.0
+preexec() { _cmd_start=$EPOCHREALTIME }
 precmd() {
   if (( _cmd_start > 0 )); then
-    _cmd_elapsed=$(( EPOCHSECONDS - _cmd_start ))
-    _cmd_start=0
+    _cmd_elapsed=$(( EPOCHREALTIME - _cmd_start ))
+    _cmd_start=0.0
   else
-    _cmd_elapsed=0
+    _cmd_elapsed=0.0
   fi
 }
 
@@ -33,11 +33,11 @@ _fmt_elapsed() {
   if (( s < 5 )); then
     echo ""
   elif (( s < 60 )); then
-    echo "${s}s "
+    printf "%.1fs " $s
   elif (( s < 3600 )); then
-    echo "$(( s/60 ))m$(( s%60 ))s "
+    echo "$(( int(s/60) ))m$(( int(s)%60 ))s "
   else
-    echo "$(( s/3600 ))h$(( (s%3600)/60 ))m "
+    echo "$(( int(s/3600) ))h$(( (int(s)%3600)/60 ))m "
   fi
 }
 
