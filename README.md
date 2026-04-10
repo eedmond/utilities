@@ -85,6 +85,57 @@ ssh username@{ip/device} -t "/usr/local/bin/tmux" a
     - https://www.youtube.com/watch?v=jaI3Hcw-ZaA&ab_channel=typecraft
     - https://www.youtube.com/watch?v=DzNmUNvnB04&ab_channel=DreamsofCode
 
+## tmux-ai-status plugin
+
+Shows AI assistant pane states in the status bar and provides a panel (`C-Space C-a`) to jump between them. Installed via TPM — already in `.tmux.conf`.
+
+**Requires Claude Code hooks** for accurate `running`/`waiting`/`asking` state detection. Add to `~/.claude/settings.json` inside the `"hooks"` object (preserve any existing entries):
+
+```json
+"UserPromptSubmit": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" UserPromptSubmit; done"
+      }
+    ]
+  }
+],
+"PreToolUse": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" PreToolUse; done"
+      }
+    ]
+  }
+],
+"Stop": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Stop; done"
+      }
+    ]
+  }
+],
+"Notification": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
+      }
+    ]
+  }
+]
+```
+
+The command tries the TPM install path first, then the dev path — works either way.
+
 # Utilities Setup
 ```shell
 git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
