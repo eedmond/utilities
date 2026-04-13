@@ -136,6 +136,24 @@ Shows AI assistant pane states in the status bar and provides a panel (`C-Space 
 
 The command tries the TPM install path first, then the dev path — works either way.
 
+### SwiftBar menu bar plugin
+
+Shows agent status in the macOS menu bar — visible even when no tmux window is open. Clicking an agent in the dropdown jumps to its tmux pane.
+
+1. Install SwiftBar:
+   ```bash
+   brew install --cask swiftbar
+   ```
+
+2. Create a plugins directory and copy the script:
+   ```bash
+   mkdir -p ~/.swiftbar
+   cp ~/Developer/tmux-ai-status/swiftbar/claude-status.2s.sh ~/.swiftbar/
+   ```
+
+3. Open SwiftBar.app and point it at `~/.swiftbar/` when prompted for a plugins folder.
+   > Press **Cmd+Shift+.** in the Finder dialog if the hidden `~/.swiftbar` folder isn't visible.
+
 # Utilities Setup
 ```shell
 git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
