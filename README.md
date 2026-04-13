@@ -148,7 +148,7 @@ Shows agent status in the macOS menu bar — visible even when no tmux window is
 2. Create a plugins directory and copy the script:
    ```bash
    mkdir -p ~/.swiftbar
-   cp ~/Developer/tmux-ai-status/swiftbar/claude-status.2s.sh ~/.swiftbar/
+   cp ~/.tmux/plugins/tmux-ai-status/swiftbar/claude-status.2s.sh ~/.swiftbar/
    ```
 
 3. Open SwiftBar.app and point it at `~/.swiftbar/` when prompted for a plugins folder.
