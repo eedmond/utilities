@@ -89,6 +89,11 @@ ssh username@{ip/device} -t "/usr/local/bin/tmux" a
 
 Shows AI assistant pane states in the status bar and provides a panel (`C-Space C-a`) to jump between them. Installed via TPM — already in `.tmux.conf`.
 
+**Dependencies:**
+```bash
+brew install fzf
+```
+
 **Requires Claude Code hooks** for accurate `running`/`waiting`/`asking` state detection. Add to `~/.claude/settings.json` inside the `"hooks"` object (preserve any existing entries):
 
 ```json
@@ -135,6 +140,24 @@ Shows AI assistant pane states in the status bar and provides a panel (`C-Space 
 ```
 
 The command tries the TPM install path first, then the dev path — works either way.
+
+### SwiftBar menu bar plugin
+
+Shows agent status in the macOS menu bar — visible even when no tmux window is open. Clicking an agent in the dropdown jumps to its tmux pane.
+
+1. Install SwiftBar:
+   ```bash
+   brew install --cask swiftbar
+   ```
+
+2. Create a plugins directory and copy the script:
+   ```bash
+   mkdir -p ~/.swiftbar
+   cp ~/.tmux/plugins/tmux-ai-status/swiftbar/claude-status.2s.sh ~/.swiftbar/
+   ```
+
+3. Open SwiftBar.app and point it at `~/.swiftbar/` when prompted for a plugins folder.
+   > Press **Cmd+Shift+.** in the Finder dialog if the hidden `~/.swiftbar` folder isn't visible.
 
 # Utilities Setup
 ```shell
