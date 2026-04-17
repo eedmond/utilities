@@ -154,3 +154,5 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
+# Setup fzf keybindings and fuzzy completion
+eval "$(fzf --zsh)"
