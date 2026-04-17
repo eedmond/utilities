@@ -154,5 +154,7 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
+export BAT_THEME="Catppuccin Mocha"
+
 # Setup fzf keybindings and fuzzy completion
 eval "$(fzf --zsh)"

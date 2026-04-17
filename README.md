@@ -19,6 +19,9 @@ brew install nvim
 brew install tmux
 brew install ripgrep
 brew install xclip
+brew install fzf
+brew install bat
+brew install git-delta
 ```
 - Download Chrome
 - Install VSCode and set as mergetool
@@ -88,11 +91,6 @@ ssh username@{ip/device} -t "/usr/local/bin/tmux" a
 ## tmux-ai-status plugin
 
 Shows AI assistant pane states in the status bar and provides a panel (`C-Space C-a`) to jump between them. Installed via TPM — already in `.tmux.conf`.
-
-**Dependencies:**
-```bash
-brew install fzf
-```
 
 **Requires Claude Code hooks** for accurate `running`/`waiting`/`asking` state detection. Add to `~/.claude/settings.json` inside the `"hooks"` object (preserve any existing entries):
 
