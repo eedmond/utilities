@@ -38,3 +38,6 @@ gui:
 
   authorColors:
     '*': '#b4befe'
+git:
+  pagers:
+    - pager: delta --dark --paging=never

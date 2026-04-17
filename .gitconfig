@@ -54,7 +54,6 @@
     diffFiler = delta --color-only
 [delta]
     navigate = true # use n and N to move between diff sections
-    side-by-side = true
 [push]
 	autoSetupRemote = true
 [rerere]
