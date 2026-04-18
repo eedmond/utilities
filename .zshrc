@@ -164,6 +164,7 @@ fi
 
 # Setup ls to map to eza
 if command -v eza &>/dev/null; then
+  export EZA_CONFIG_DIR="$(dirname $(readlink ~/.zshrc))/eza"
   alias ls='eza -lh --no-permissions --no-user --no-time --icons'
 fi
 
