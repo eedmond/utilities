@@ -156,5 +156,18 @@ select-word-style bash
 
 export BAT_THEME="Catppuccin Mocha"
 
+# Setup cd to map to zoxide
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
+fi
+
+# Setup ls to map to eza
+if command -v eza &>/dev/null; then
+  alias ls='eza -lh --no-permissions --no-user --no-time --icons'
+fi
+
 # Setup fzf keybindings and fuzzy completion
-eval "$(fzf --zsh)"
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --zsh)"
+fi
