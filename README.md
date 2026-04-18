@@ -22,6 +22,8 @@ brew install xclip
 brew install fzf
 brew install bat
 brew install git-delta
+brew install eza
+brew install zoxide
 ```
 - Download Chrome
 - Install VSCode and set as mergetool
