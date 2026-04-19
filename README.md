@@ -24,6 +24,7 @@ brew install bat
 brew install git-delta
 brew install eza
 brew install zoxide
+brew install yazi
 ```
 - Download Chrome
 - Install VSCode and set as mergetool
@@ -167,5 +168,6 @@ ln -sf "$PWD/.zshrc" ~/.zshrc
 ln -sf "$PWD/.gitconfig" ~/.gitconfig
 ln -sf "$PWD/.tmux.conf" ~/.tmux.conf
 ln -sf "$PWD/lazygit/config.yml" ~/Library/Application\ Support/lazygit/config.yml
+ln -s "$PWD/yazi" ~/.config/yazi
 cp ./iTerm2Profile.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 ```

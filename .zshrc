@@ -154,7 +154,9 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
+# Setup defaults for bat and yazi
 export BAT_THEME="Catppuccin Mocha"
+export EDITOR="nvim"
 
 # Setup cd to map to zoxide
 if command -v zoxide &>/dev/null; then
