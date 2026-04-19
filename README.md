@@ -165,6 +165,7 @@ Shows agent status in the macOS menu bar — visible even when no tmux window is
 git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
 cd ~/Developer/utilities
 ln -sf "$PWD/.zshrc" ~/.zshrc
+ln -sf "$PWD/.zshenv" ~/.zshenv
 ln -sf "$PWD/.gitconfig" ~/.gitconfig
 ln -sf "$PWD/.tmux.conf" ~/.tmux.conf
 ln -sf "$PWD/lazygit/config.yml" ~/Library/Application\ Support/lazygit/config.yml
