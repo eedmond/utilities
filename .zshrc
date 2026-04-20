@@ -134,6 +134,8 @@ bindkey "\e[3;5~" kill-word
 bindkey "\e[3^" kill-word
 ### ctrl+backspace
 bindkey '^H' backward-kill-word
+### cmd+backspace (iTerm2 sends ^U by default)
+bindkey '^U' backward-kill-line
 ### ctrl+shift+delete
 bindkey "\e[3;6~" kill-line
 # urxvt
