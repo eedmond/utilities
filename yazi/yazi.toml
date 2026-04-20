@@ -48,6 +48,10 @@ open = [
 	{ run = 'start "" %s1',    desc = "Open", for = "windows", orphan = true },
 	{ run = "termux-open %s1", desc = "Open", for = "android" },
 ]
+browser = [
+	{ run = "open %s",      desc = "Open in browser", for = "macos" },
+	{ run = "xdg-open %s1", desc = "Open in browser", for = "linux" },
+]
 reveal = [
 	{ run = "xdg-open %d1",         desc = "Reveal", for = "linux" },
 	{ run = "open -R %s1",          desc = "Reveal", for = "macos" },
@@ -67,6 +71,8 @@ download = [
 rules = [
 	# Folder
 	{ url = "*/", use = [ "edit", "open", "reveal" ] },
+	# HTML
+	{ mime = "text/html", use = [ "edit", "browser", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
