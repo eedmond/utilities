@@ -114,7 +114,12 @@ function fvim() {
     nvim "$file"
 }
 
+# Force emacs keymap (zsh otherwise picks vi mode when $EDITOR matches *vi*)
+bindkey -e
+
 bindkey "^X\\x7f" backward-kill-line
+### alt+backspace
+bindkey "^[^?" backward-kill-word
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
 ### ctrl+arrows
