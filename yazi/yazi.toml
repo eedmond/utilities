@@ -140,6 +140,8 @@ preloaders = [
 ]
 previewers = [
 	{ url = "*/", run = "folder" },
+	# HTML
+	{ mime = "text/html", run = "myhtml" },
 	# Code
 	{ mime = "text/*", run = "code" },
 	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
