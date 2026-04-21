@@ -25,6 +25,7 @@ brew install git-delta
 brew install eza
 brew install zoxide
 brew install yazi
+brew install zsh-autosuggestions
 ```
 - Download Chrome
 - Install VSCode and set as mergetool

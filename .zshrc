@@ -181,3 +181,18 @@ fi
 if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
 fi
+
+# ── zsh-autosuggestions ─────────────────────────────────────────────────────
+() {
+  local f="$(brew --prefix 2>/dev/null)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  [[ -f "$f" ]] && source "$f"
+}
+_autosuggest_or_complete() {
+  if [[ -n "$POSTDISPLAY" ]]; then
+    zle autosuggest-accept
+  else
+    zle expand-or-complete
+  fi
+}
+zle -N _autosuggest_or_complete
+bindkey '\t' _autosuggest_or_complete
