@@ -169,7 +169,6 @@ ln -sf "$PWD/.zshrc" ~/.zshrc
 ln -sf "$PWD/.zshenv" ~/.zshenv
 ln -sf "$PWD/.gitconfig" ~/.gitconfig
 ln -sf "$PWD/.tmux.conf" ~/.tmux.conf
-ln -sf "$PWD/lazygit/config.yml" ~/Library/Application\ Support/lazygit/config.yml
+ln -sf "$PWD/lazygit/config.yml" ~/.config/lazygit/config.yml
 ln -s "$PWD/yazi" ~/.config/yazi
-cp ./iTerm2Profile.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 ```
