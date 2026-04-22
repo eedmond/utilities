@@ -18,6 +18,7 @@
 brew install nvim
 brew install tmux
 brew install ripgrep
+brew install fd
 brew install xclip
 brew install fzf
 brew install bat
