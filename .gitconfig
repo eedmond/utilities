@@ -34,7 +34,7 @@
 	updateRefs = true
 [merge]
 	tool = vscode
-	conflictstyle = zdiff3
+	conflictstyle = diff3
 [mergetool]
 	prompt = false
 	keepBackup = false
