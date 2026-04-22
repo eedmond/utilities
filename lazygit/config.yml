@@ -35,6 +35,7 @@ gui:
       - '#f38ba8'
     defaultFgColor:
       - '#cdd6f4'
+  scrollHeight: 11
 
   authorColors:
     '*': '#b4befe'
