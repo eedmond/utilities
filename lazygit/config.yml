@@ -5,10 +5,14 @@ keybinding:
     nextTab: l
     prevTab: h
     focusMainView: <c-l>
+    copyToClipboard: <c-y>         # was <c-o>; copies branch name, file path, etc. in context
   commits:
     moveDownCommit: <s-down>
     moveUpCommit: <s-up>
     openLogMenu: <c-w>
+    cherryPickCopy: y                      # was C (shift+c)
+    pasteCommits: p                        # was V (shift+v); p = pullFiles in other panels
+    copyCommitAttributeToClipboard: C  # was y; opens hash/subject/body copy menu
 gui:
   theme:
     activeBorderColor:
