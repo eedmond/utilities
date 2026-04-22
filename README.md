@@ -25,6 +25,7 @@ brew install git-delta
 brew install eza
 brew install zoxide
 brew install yazi
+brew install lazygit
 brew install zsh-autosuggestions
 ```
 - Download Chrome
