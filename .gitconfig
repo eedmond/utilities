@@ -42,12 +42,18 @@
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [diff]
 	tool = vscode
+    colorMoved = default
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
 [pull]
 	rebase = true
 [core]
 	editor = nvim -f
+    pager = delta
+[interactive]
+    diffFiler = delta --color-only
+[delta]
+    navigate = true # use n and N to move between diff sections
 [push]
 	autoSetupRemote = true
 [rerere]

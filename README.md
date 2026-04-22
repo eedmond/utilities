@@ -19,6 +19,13 @@ brew install nvim
 brew install tmux
 brew install ripgrep
 brew install xclip
+brew install fzf
+brew install bat
+brew install git-delta
+brew install eza
+brew install zoxide
+brew install yazi
+brew install zsh-autosuggestions
 ```
 - Download Chrome
 - Install VSCode and set as mergetool
@@ -89,11 +96,6 @@ ssh username@{ip/device} -t "/usr/local/bin/tmux" a
 
 Shows AI assistant pane states in the status bar and provides a panel (`C-Space C-a`) to jump between them. Installed via TPM — already in `.tmux.conf`.
 
-**Dependencies:**
-```bash
-brew install fzf
-```
-
 **Requires Claude Code hooks** for accurate `running`/`waiting`/`asking` state detection. Add to `~/.claude/settings.json` inside the `"hooks"` object (preserve any existing entries):
 
 ```json
@@ -163,8 +165,11 @@ Shows agent status in the macOS menu bar — visible even when no tmux window is
 ```shell
 git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
 cd ~/Developer/utilities
-cp .zshrc ~/.zshrc
-cp .gitconfig ~/.gitconfig
-cp .tmux.conf ~/.tmux.conf
+ln -sf "$PWD/.zshrc" ~/.zshrc
+ln -sf "$PWD/.zshenv" ~/.zshenv
+ln -sf "$PWD/.gitconfig" ~/.gitconfig
+ln -sf "$PWD/.tmux.conf" ~/.tmux.conf
+ln -sf "$PWD/lazygit/config.yml" ~/Library/Application\ Support/lazygit/config.yml
+ln -s "$PWD/yazi" ~/.config/yazi
 cp ./iTerm2Profile.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 ```

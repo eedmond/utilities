@@ -1,0 +1,49 @@
+keybinding:
+  universal:
+    nextBlock-alt: <c-j>
+    prevBlock-alt: <c-k>
+    nextTab: l
+    prevTab: h
+    focusMainView: <c-l>
+    copyToClipboard: <c-y>         # was <c-o>; copies branch name, file path, etc. in context
+  commits:
+    moveDownCommit: <s-down>
+    moveUpCommit: <s-up>
+    openLogMenu: <c-w>
+    cherryPickCopy: y                      # was C (shift+c)
+    pasteCommits: p                        # was V (shift+v); p = pullFiles in other panels
+    copyCommitAttributeToClipboard: C  # was y; opens hash/subject/body copy menu
+gui:
+  theme:
+    activeBorderColor:
+      - '#89b4fa'
+      - bold
+    inactiveBorderColor:
+      - '#a6adc8'
+    searchingActiveBorderColor:
+      - '#f9e2af'
+    optionsTextColor:
+      - '#89b4fa'
+    selectedLineBgColor:
+      - '#313244'
+    inactiveViewSelectedLineBgColor:
+      - '#6c7086'
+    cherryPickedCommitFgColor:
+      - '#89b4fa'
+    cherryPickedCommitBgColor:
+      - '#45475a'
+    markedBaseCommitFgColor:
+      - '#89b4fa'
+    markedBaseCommitBgColor:
+      - '#f9e2af'
+    unstagedChangesColor:
+      - '#f38ba8'
+    defaultFgColor:
+      - '#cdd6f4'
+  scrollHeight: 11
+
+  authorColors:
+    '*': '#b4befe'
+git:
+  pagers:
+    - pager: delta --dark --paging=never

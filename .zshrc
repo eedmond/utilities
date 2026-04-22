@@ -114,7 +114,12 @@ function fvim() {
     nvim "$file"
 }
 
+# Force emacs keymap (zsh otherwise picks vi mode when $EDITOR matches *vi*)
+bindkey -e
+
 bindkey "^X\\x7f" backward-kill-line
+### alt+backspace
+bindkey "^[^?" backward-kill-word
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
 ### ctrl+arrows
@@ -129,6 +134,8 @@ bindkey "\e[3;5~" kill-word
 bindkey "\e[3^" kill-word
 ### ctrl+backspace
 bindkey '^H' backward-kill-word
+### cmd+backspace (iTerm2 sends ^U by default)
+bindkey '^U' backward-kill-line
 ### ctrl+shift+delete
 bindkey "\e[3;6~" kill-line
 # urxvt
@@ -154,6 +161,41 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 autoload -U select-word-style
 select-word-style bash
 
+# Setup defaults for bat and yazi
+export BAT_THEME="Catppuccin Mocha"
+export EDITOR="nvim"
+
+# Setup cd to map to zoxide
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
+fi
+
+# Setup ls to map to eza
+if command -v eza &>/dev/null; then
+  export EZA_CONFIG_DIR="$(dirname $(readlink ~/.zshrc))/eza"
+  alias ls='eza -lh --no-permissions --no-user --no-time --icons'
+fi
+
+# Setup fzf keybindings and fuzzy completion
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
+# ── zsh-autosuggestions ─────────────────────────────────────────────────────
+() {
+  local f="$(brew --prefix 2>/dev/null)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  [[ -f "$f" ]] && source "$f"
+}
+_autosuggest_or_complete() {
+  if [[ -n "$POSTDISPLAY" ]]; then
+    zle autosuggest-accept
+  else
+    zle expand-or-complete
+  fi
+}
+zle -N _autosuggest_or_complete
+bindkey '\t' _autosuggest_or_complete
 # Export path adding neovim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
