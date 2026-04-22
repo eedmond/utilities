@@ -8,6 +8,7 @@ keybinding:
   commits:
     moveDownCommit: <s-down>
     moveUpCommit: <s-up>
+    openLogMenu: <c-w>
 gui:
   theme:
     activeBorderColor:
