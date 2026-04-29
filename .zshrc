@@ -44,6 +44,9 @@ _fmt_elapsed() {
 export PROMPT='${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%(?..[${COLOR_ERR}%?${COLOR_DEF}] )${COLOR_DIM}$(_fmt_elapsed)${COLOR_DEF}%% '
 export RPROMPT='${COLOR_DIM}%*${COLOR_DEF}'
 
+_accept-line() { zle reset-prompt; zle .accept-line }
+zle -N accept-line _accept-line
+
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
 function xcopen() {
