@@ -79,12 +79,20 @@ Store the result as `TARGET_REF`.
 
 ### 4. Capture the diff
 
+Generate a unique run ID so multiple reviews can run in parallel without stomping on each other:
+
+```bash
+RUN_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
+DIFF_FILE="/tmp/review-swarm-${RUN_ID}.diff"
+FILES_FILE="/tmp/review-swarm-${RUN_ID}.files"
+```
+
 For the target ref: always try `origin/{TARGET_REF}` first. If that fails (e.g. `git rev-parse --verify origin/{TARGET_REF}` exits non-zero), fall back to using the ref as-is. This ensures `main` resolves to `origin/main` rather than a stale local branch.
 For the source: if it matches the current checked-out branch, use `HEAD`. Otherwise, try the name as-is first (local branch), and if that fails, try `origin/{source}`.
 
 ```bash
-git diff "${TARGET_REF}...${SOURCE_BRANCH}" > /tmp/review-swarm.diff
-git diff --name-only "${TARGET_REF}...${SOURCE_BRANCH}" > /tmp/review-swarm.files
+git diff "${TARGET_REF}...${SOURCE_BRANCH}" > "${DIFF_FILE}"
+git diff --name-only "${TARGET_REF}...${SOURCE_BRANCH}" > "${FILES_FILE}"
 ```
 
 ### 5. If the diff is empty, report that there is nothing to review and stop.
@@ -107,8 +115,8 @@ Pass each one the same context block:
 ```
 You are reviewing a PR. Check the project's CLAUDE.md (if one exists) for project-specific conventions, architecture patterns, and style guidelines.
 
-The diff is at /tmp/review-swarm.diff.
-The list of changed files is at /tmp/review-swarm.files.
+The diff is at ${DIFF_FILE}.
+The list of changed files is at ${FILES_FILE}.
 
 Read the diff. Apply your specialty's review process. Use Read/Grep/Glob to inspect surrounding code or check for tests as needed. Return your findings in the structured output format defined in your agent definition.
 
