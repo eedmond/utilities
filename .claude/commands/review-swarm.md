@@ -1,64 +1,117 @@
 ---
 description: Run a parallel swarm of specialized code reviewers (power, performance, testability, readability, structure, architecture, security, privacy, catch-all) against the current branch and synthesize their findings.
-argument-hint: "[base-ref]"
+argument-hint: "[source-branch] [target-ref]"
 ---
 
 # Review Swarm
 
-Run all specialized review agents in parallel against the current branch's changes, then synthesize a consolidated report.
+Run all specialized review agents in parallel against a branch's changes, then synthesize a consolidated report.
 
 ## Usage
 
 ```
-/review-swarm
-/review-swarm main
-/review-swarm develop
+/review-swarm                                  # interactive branch selection
+/review-swarm feature/my-branch                # review branch against default target
+/review-swarm feature/my-branch main           # review branch against explicit target
+/review-swarm feature/my-branch abc1234        # review branch against a commit ref
 ```
-
-If no `base-ref` is provided, detect the repository's default branch (`main`, `master`, `develop`, etc.) using `git symbolic-ref refs/remotes/origin/HEAD` or ask the user. If the ref is a remote branch, we should ensure we're referencing the version on the remote -- usually accomplished by appending `origin/` on the branch name.
 
 ## Procedure
 
-1. **Determine the base ref**:
-   ```bash
-   BASE_REF="${1:-$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||')}"
-   ```
-   If detection fails and no argument was provided, ask the user which base branch to diff against.
+### 1. Parse arguments
 
-2. **Capture the diff** against the base ref:
-   ```bash
-   git diff "$BASE_REF"...HEAD > /tmp/review-swarm.diff
-   git diff --name-only "$BASE_REF"...HEAD > /tmp/review-swarm.files
-   ```
-   Also capture the list of changed files so each reviewer can scope its work.
+The user may provide zero, one, or two arguments:
+- **Two arguments**: `$1` is the source branch, `$2` is the target ref. Skip to step 4.
+- **One argument**: `$1` is the source branch. Prompt for target (step 3).
+- **No arguments**: Prompt for source (step 2) and target (step 3).
 
-3. **If the diff is empty**, report that there is nothing to review and stop.
+### 2. Select source branch (if not provided as argument)
 
-4. **Spawn all nine reviewers in a single assistant message** (this is what gives you parallelism — they must be in one message, not sequential calls). Use the `Agent` tool with these `subagent_type` values:
-   - `power-reviewer`
-   - `performance-reviewer`
-   - `testability-reviewer`
-   - `readability-reviewer`
-   - `code-structure-reviewer`
-   - `swift-architecture-reviewer`
-   - `security-reviewer`
-   - `privacy-reviewer`
-   - `catch-all-reviewer`
+First, gather data by running these bash commands:
 
-   Pass each one the same context block:
+```bash
+CURRENT=$(git branch --show-current 2>/dev/null || git rev-parse --short HEAD)
 
-   ```
-   You are reviewing a PR. Check the project's CLAUDE.md (if one exists) for project-specific conventions, architecture patterns, and style guidelines.
+git fetch --prune --quiet 2>/dev/null
 
-   The diff is at /tmp/review-swarm.diff.
-   The list of changed files is at /tmp/review-swarm.files.
+git for-each-ref --sort=-committerdate \
+  --format='%(refname:strip=3)|%(authorname)|%(committerdate:relative)' \
+  refs/remotes/origin/ \
+  | grep -v -E '^(main$|master$|develop$|release/|HEAD$)' \
+  | head -20
+```
 
-   Read the diff. Apply your specialty's review process. Use Read/Grep/Glob to inspect surrounding code or check for tests as needed. Return your findings in the structured output format defined in your agent definition.
+Then use the **AskUserQuestion** tool to prompt the user. Build the options as:
+- **Option 1**: The current branch — use the branch name as the label with "(Recommended)", description "Your current checked-out branch"
+- **Options 2–4**: Up to 3 of the most recently changed branches from the git output above. Use the branch name as the label, and `{author}, {date}` as the description.
 
-   Be concrete. Cite `file:line`. Suggest fixes. If nothing is wrong, say so plainly.
-   ```
+The user can always select "Other" to type in any branch name.
 
-5. **Wait for all reviewers to return**, then synthesize.
+Store the result as `SOURCE_BRANCH`.
+
+### 3. Select target branch (if not provided as argument)
+
+Determine the default target:
+1. Check the project's `CLAUDE.md` for a specified main branch.
+2. Fall back to: `git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||'`
+3. Fall back to `main`.
+
+Gather recent main/release branches:
+```bash
+git for-each-ref --sort=-committerdate \
+  --format='%(refname:strip=3)|%(committerdate:relative)' \
+  refs/remotes/origin/ \
+  | grep -E '^(main|master|release/)' \
+  | head -10
+```
+
+Use the **AskUserQuestion** tool:
+- **Option 1**: The default target branch (e.g. `main`) — label with "(Recommended)", description "Default branch"
+- **Options 2–4**: Up to 3 of the most recent `release/*` or other main-like branches from the list above. Use the branch name as the label and the relative date as the description.
+
+The user can select "Other" to type in any branch name or commit ref.
+
+Store the result as `TARGET_REF`.
+
+### 4. Capture the diff
+
+For the target ref: always try `origin/{TARGET_REF}` first. If that fails (e.g. `git rev-parse --verify origin/{TARGET_REF}` exits non-zero), fall back to using the ref as-is. This ensures `main` resolves to `origin/main` rather than a stale local branch.
+For the source: if it matches the current checked-out branch, use `HEAD`. Otherwise, try the name as-is first (local branch), and if that fails, try `origin/{source}`.
+
+```bash
+git diff "${TARGET_REF}...${SOURCE_BRANCH}" > /tmp/review-swarm.diff
+git diff --name-only "${TARGET_REF}...${SOURCE_BRANCH}" > /tmp/review-swarm.files
+```
+
+### 5. If the diff is empty, report that there is nothing to review and stop.
+
+### 6. Spawn all nine reviewers in a single assistant message
+
+This is what gives you parallelism — they must be in one message, not sequential calls. Use the `Agent` tool with these `subagent_type` values:
+- `power-reviewer`
+- `performance-reviewer`
+- `testability-reviewer`
+- `readability-reviewer`
+- `code-structure-reviewer`
+- `swift-architecture-reviewer`
+- `security-reviewer`
+- `privacy-reviewer`
+- `catch-all-reviewer`
+
+Pass each one the same context block:
+
+```
+You are reviewing a PR. Check the project's CLAUDE.md (if one exists) for project-specific conventions, architecture patterns, and style guidelines.
+
+The diff is at /tmp/review-swarm.diff.
+The list of changed files is at /tmp/review-swarm.files.
+
+Read the diff. Apply your specialty's review process. Use Read/Grep/Glob to inspect surrounding code or check for tests as needed. Return your findings in the structured output format defined in your agent definition.
+
+Be concrete. Cite `file:line`. Suggest fixes. If nothing is wrong, say so plainly.
+```
+
+### 7. Wait for all reviewers to return, then synthesize.
 
 ## Synthesis Format
 
@@ -67,7 +120,7 @@ After all nine reviewers report back, consolidate as:
 ```
 # Review Swarm Report
 
-**Base**: <base-ref>  **Head**: <current branch>  **Files changed**: <count>
+**Source**: <source-branch>  **Target**: <target-ref>  **Files changed**: <count>
 
 ## 🚨 Critical Blockers
 [CRITICAL/DO_NOT_MERGE findings from any reviewer, grouped by lane.
