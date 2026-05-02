@@ -41,11 +41,13 @@ git for-each-ref --sort=-committerdate \
   | head -20
 ```
 
-Then use the **AskUserQuestion** tool to prompt the user. Build the options as:
+Then use the **AskUserQuestion** tool to prompt the user:
 - **Option 1**: The current branch — use the branch name as the label with "(Recommended)", description "Your current checked-out branch"
-- **Options 2–4**: Up to 3 of the most recently changed branches from the git output above. Use the branch name as the label, and `{author}, {date}` as the description.
+- **Option 2**: "Browse recent branches" — description "Show recently changed branches to pick from"
 
 The user can always select "Other" to type in any branch name.
+
+If the user selects **"Browse recent branches"**: print the full list as a formatted table (branch name, author, date), then use a second **AskUserQuestion** with up to 4 of the most recent branches as options (branch name as label, `{author}, {date}` as description). The user can select one or use "Other" to type any branch name from the list.
 
 Store the result as `SOURCE_BRANCH`.
 
@@ -67,9 +69,11 @@ git for-each-ref --sort=-committerdate \
 
 Use the **AskUserQuestion** tool:
 - **Option 1**: The default target branch (e.g. `main`) — label with "(Recommended)", description "Default branch"
-- **Options 2–4**: Up to 3 of the most recent `release/*` or other main-like branches from the list above. Use the branch name as the label and the relative date as the description.
+- **Option 2**: "Browse main/release branches" — description "Show recent main and release branches to pick from"
 
 The user can select "Other" to type in any branch name or commit ref.
+
+If the user selects **"Browse main/release branches"**: print the full list as a formatted table (branch name, date), then use a second **AskUserQuestion** with up to 4 of the most recent branches as options (branch name as label, relative date as description). The user can select one or use "Other" to type any branch name or commit ref.
 
 Store the result as `TARGET_REF`.
 
