@@ -101,22 +101,6 @@ function xcopen() {
     fi
 }
 
-# Function to combine searching recursively for a file and opening it in Neovim
-function fvim() {
-    local name="$1"
-    if [[ -z "$name" ]]; then
-        echo "Usage: fvim <filename>" >&2
-        return 1
-    fi
-    local file
-    file=$(find . -name "$name" -not -path '*/.git/*' | head -1)
-    if [[ -z "$file" ]]; then
-        echo "No file named '$name' found." >&2
-        return 1
-    fi
-    nvim "$file"
-}
-
 # Force emacs keymap (zsh otherwise picks vi mode when $EDITOR matches *vi*)
 bindkey -e
 
