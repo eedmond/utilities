@@ -15,18 +15,18 @@
     - Using `MesloLGSNF-Regular`
     - Open the folder and double click a font and install it
 ```shell
-brew install nvim
-brew install tmux
-brew install ripgrep
-brew install fd
-brew install xclip
-brew install fzf
 brew install bat
-brew install git-delta
 brew install eza
-brew install zoxide
-brew install yazi
+brew install fd
+brew install fzf
+brew install git-delta
 brew install lazygit
+brew install nvim
+brew install ripgrep
+brew install tmux
+brew install xclip
+brew install yazi
+brew install zoxide
 brew install zsh-autosuggestions
 ```
 - Download Chrome
