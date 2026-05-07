@@ -44,16 +44,17 @@ xcbuild() {
     # spew between fzf renders.
     local result key sel menu_output prompt header fzf_rc
     local kind rest id vrc cfg mfile meta_file run_status run_repo
+    local reuse_project reuse_project_flag reuse_scheme
 
     while true; do
         if [[ "$mode" == "detail" ]]; then
             menu_output=$(_xcbuild_menu_detail "$detail_key")
             prompt='config history ▸ '
-            header='enter=run · ctrl-v=view log · ctrl-x=delete · esc=back'
+            header='enter=run · ctrl-v=view · ctrl-r=retarget · ctrl-x=delete · esc=back'
         else
             menu_output=$(_xcbuild_menu "$repo")
             prompt='xcbuild ▸ '
-            header='enter=run · ctrl-v=view · ctrl-h=history · ctrl-x=delete · esc=quit'
+            header='enter=run · ctrl-v=view · ctrl-r=retarget · ctrl-h=history · ctrl-x=delete · esc=quit'
         fi
 
         result=$(print -r -- "$menu_output" | fzf \
@@ -65,7 +66,7 @@ xcbuild() {
             --layout=reverse \
             --no-multi --no-info \
             --pointer='▶' \
-            --expect=ctrl-v,ctrl-x,ctrl-h)
+            --expect=ctrl-v,ctrl-x,ctrl-h,ctrl-r)
         fzf_rc=$?
 
         if (( fzf_rc != 0 )); then
@@ -109,6 +110,23 @@ xcbuild() {
                         detail_key=$(_xcbuild_config_key "$mfile")
                         mode="detail"
                     fi
+                fi
+                continue
+                ;;
+            ctrl-r)
+                # Keep the same project/scheme, pick a new destination.
+                if [[ "$kind" == "run" ]]; then
+                    mfile="$XCBUILD_RUNS_DIR/$id/meta.json"
+                    [[ -f "$mfile" ]] || continue
+                    reuse_project=$(jq -r '.project' "$mfile")
+                    reuse_project_flag=$(jq -r '.project_flag' "$mfile")
+                    reuse_scheme=$(jq -r '.scheme' "$mfile")
+                    run_repo=$(jq -r '.repo' "$mfile")
+                    cfg=$(_xcbuild_pick_destination \
+                        "$reuse_project" "$reuse_project_flag" "$reuse_scheme") \
+                        || continue
+                    _xcbuild_launch "$run_repo" "$cfg"
+                    return 0
                 fi
                 continue
                 ;;
@@ -324,7 +342,17 @@ _xcbuild_wizard() {
                 --layout=reverse --no-multi --no-info) || return 1
     fi
 
-    # Step 3: destination.
+    # Step 3: destination — delegated so `ctrl-r` on a past run can reuse
+    # it with a pre-chosen project+scheme.
+    _xcbuild_pick_destination "$project" "$project_flag" "$scheme"
+}
+
+_xcbuild_pick_destination() {
+    # Prompt only for a destination; emits the same cfg JSON that the full
+    # wizard produces. Used both by the wizard (after project/scheme are
+    # picked) and by ctrl-r on a past run (reuses its project/scheme).
+    local project="$1" project_flag="$2" scheme="$3"
+
     local dest_raw dest_rc
     dest_raw=$(xcodebuild -showdestinations \
         "$project_flag" "$project" -scheme "$scheme" 2>&1)
