@@ -101,6 +101,13 @@ function xcopen() {
     fi
 }
 
+# xcbuild — popup-driven Xcode build/deploy with run history. Source the
+# implementation that lives next to this file in the utilities repo.
+() {
+    local d="$(dirname "$(readlink ~/.zshrc)")"
+    [[ -f "$d/xcbuild.zsh" ]] && source "$d/xcbuild.zsh"
+}
+
 # Force emacs keymap (zsh otherwise picks vi mode when $EDITOR matches *vi*)
 bindkey -e
 
