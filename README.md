@@ -98,7 +98,10 @@ ssh username@{ip/device} -t "/usr/local/bin/tmux" a
 
 Shows AI assistant pane states in the status bar and provides a panel (`C-Space C-a`) to jump between them. Installed via TPM — already in `.tmux.conf`.
 
-**Requires Claude Code hooks** for accurate `running`/`waiting`/`asking` state detection. Add to `~/.claude/settings.json` inside the `"hooks"` object (preserve any existing entries):
+**Requires hooks** for accurate `running`/`waiting`/`asking` state detection.
+
+#### Claude Code
+Add to `~/.claude/settings.json` (preserve any existing entries):
 
 ```json
 "UserPromptSubmit": [
@@ -122,6 +125,52 @@ Shows AI assistant pane states in the status bar and provides a panel (`C-Space 
   }
 ],
 "Stop": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Stop; done"
+      }
+    ]
+  }
+],
+"Notification": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
+      }
+    ]
+  }
+]
+```
+
+#### Gemini CLI
+Add to `~/.gemini/settings.json` inside the `"hooks"` object (preserve any existing entries):
+
+```json
+"BeforeAgent": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" UserPromptSubmit; done"
+      }
+    ]
+  }
+],
+"BeforeTool": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" PreToolUse; done"
+      }
+    ]
+  }
+],
+"AfterAgent": [
   {
     "hooks": [
       {
