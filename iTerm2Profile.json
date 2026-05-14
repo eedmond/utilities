@@ -580,6 +580,7 @@
     "Green Component" : 0.97999999999999998
   },
   "Terminal Type" : "xterm-256color",
+  "Use libtickit protocol" : true,
   "Ansi 13 Color" : {
     "Red Component" : 0.8821563720703125,
     "Color Space" : "sRGB",
