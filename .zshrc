@@ -44,6 +44,9 @@ _fmt_elapsed() {
 export PROMPT='${COLOR_DIR}%d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF}${NEWLINE}%(?..[${COLOR_ERR}%?${COLOR_DEF}] )${COLOR_DIM}$(_fmt_elapsed)${COLOR_DEF}%% '
 export RPROMPT='${COLOR_DIM}%*${COLOR_DEF}'
 
+_accept-line() { zle reset-prompt; zle .accept-line }
+zle -N accept-line _accept-line
+
 alias gwt='(){ pushd ~/Developer/worktrees/$1/src ; }'
 alias gohome='(){ pushd ~/Developer ; }'
 function xcopen() {
@@ -98,20 +101,11 @@ function xcopen() {
     fi
 }
 
-# Function to combine searching recursively for a file and opening it in Neovim
-function fvim() {
-    local name="$1"
-    if [[ -z "$name" ]]; then
-        echo "Usage: fvim <filename>" >&2
-        return 1
-    fi
-    local file
-    file=$(find . -name "$name" -not -path '*/.git/*' | head -1)
-    if [[ -z "$file" ]]; then
-        echo "No file named '$name' found." >&2
-        return 1
-    fi
-    nvim "$file"
+# xcbuild — popup-driven Xcode build/deploy with run history. Source the
+# implementation that lives next to this file in the utilities repo.
+() {
+    local d="$(dirname "$(readlink ~/.zshrc)")"
+    [[ -f "$d/xcbuild.zsh" ]] && source "$d/xcbuild.zsh"
 }
 
 # Force emacs keymap (zsh otherwise picks vi mode when $EDITOR matches *vi*)
@@ -174,7 +168,7 @@ fi
 # Setup ls to map to eza
 if command -v eza &>/dev/null; then
   export EZA_CONFIG_DIR="$(dirname $(readlink ~/.zshrc))/eza"
-  alias ls='eza -lh --no-permissions --no-user --no-time --icons'
+  alias ls='eza -Glh --no-permissions --no-user --no-time --icons'
 fi
 
 # Setup fzf keybindings and fuzzy completion
