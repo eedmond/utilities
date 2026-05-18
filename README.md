@@ -212,6 +212,19 @@ Shows agent status in the macOS menu bar — visible even when no tmux window is
 3. Open SwiftBar.app and point it at `~/.swiftbar/` when prompted for a plugins folder.
    > Press **Cmd+Shift+.** in the Finder dialog if the hidden `~/.swiftbar` folder isn't visible.
 
+# Windows Terminal (WSL only)
+
+`windows-terminal-settings.json` contains the Windows Terminal config (color scheme, font, keybindings). Because Windows Terminal is a Windows app, it can't follow a Linux symlink — use a Windows symbolic link instead. Run from **PowerShell as Administrator**:
+
+```powershell
+$src = "\\wsl.localhost\Ubuntu-22.04\home\eedmond\utilities\windows-terminal-settings.json"
+$dst = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+Remove-Item $dst -Force
+New-Item -ItemType SymbolicLink -Path $dst -Target $src
+```
+
+Adjust the distro name (`Ubuntu-22.04`) if your WSL distro name differs (`wsl -l` to check).
+
 # Utilities Setup
 ```shell
 git clone git@github.com:eedmond/utilities.git ~/Developer/utilities
