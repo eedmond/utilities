@@ -35,6 +35,14 @@
                 "input": "\u001b[27;5;46~"
             },
             "id": "User.sendInput.CtrlPeriod"
+        },
+        {
+            "command":
+            {
+                "action": "sendInput",
+                "input": ""
+            },
+            "id": "User.sendInput.CtrlBackspace"
         }
     ],
     "copyFormatting": "none",
@@ -61,6 +69,10 @@
         {
             "id": "User.sendInput.CtrlPeriod",
             "keys": "ctrl+period"
+        },
+        {
+            "id": "User.sendInput.CtrlBackspace",
+            "keys": "ctrl+backspace"
         }
     ],
     "newTabMenu":
