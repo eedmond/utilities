@@ -174,6 +174,7 @@ fi
 # Setup fzf keybindings and fuzzy completion
 if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
+  export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind='ctrl-j:down,ctrl-k:up'"
 fi
 
 # ── zsh-autosuggestions ─────────────────────────────────────────────────────

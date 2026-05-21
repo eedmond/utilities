@@ -109,7 +109,7 @@ Add to `~/.claude/settings.json` (preserve any existing entries):
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" UserPromptSubmit; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" UserPromptSubmit; done"
       }
     ]
   }
@@ -119,7 +119,7 @@ Add to `~/.claude/settings.json` (preserve any existing entries):
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" PreToolUse; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" PreToolUse; done"
       }
     ]
   }
@@ -129,7 +129,7 @@ Add to `~/.claude/settings.json` (preserve any existing entries):
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Stop; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Stop; done"
       }
     ]
   }
@@ -139,7 +139,27 @@ Add to `~/.claude/settings.json` (preserve any existing entries):
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
+      }
+    ]
+  }
+],
+"SubagentStart": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" SubagentStart; done"
+      }
+    ]
+  }
+],
+"SubagentStop": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" SubagentStop; done"
       }
     ]
   }
@@ -155,7 +175,7 @@ Add to `~/.gemini/settings.json` inside the `"hooks"` object (preserve any exist
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" UserPromptSubmit; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" BeforeAgent; done"
       }
     ]
   }
@@ -165,7 +185,7 @@ Add to `~/.gemini/settings.json` inside the `"hooks"` object (preserve any exist
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" PreToolUse; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" BeforeTool; done"
       }
     ]
   }
@@ -175,7 +195,7 @@ Add to `~/.gemini/settings.json` inside the `"hooks"` object (preserve any exist
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Stop; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" AfterAgent; done"
       }
     ]
   }
@@ -185,14 +205,14 @@ Add to `~/.gemini/settings.json` inside the `"hooks"` object (preserve any exist
     "hooks": [
       {
         "type": "command",
-        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
+        "command": "for d in $HOME/.tmux/plugins/tmux-ai-status $HOME/.config/tmux/plugins/tmux-ai-status $HOME/Developer/tmux-ai-status; do [ -f \"$d/scripts/hook.sh\" ] && exec bash \"$d/scripts/hook.sh\" Notification; done"
       }
     ]
   }
 ]
 ```
 
-The command tries the TPM install path first, then the dev path — works either way.
+The command tries TPM (`~/.tmux/plugins`), XDG (`~/.config/tmux/plugins`), then the dev path — works from any install location.
 
 ### SwiftBar menu bar plugin
 
