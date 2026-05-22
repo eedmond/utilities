@@ -54,6 +54,20 @@
     diffFiler = delta --color-only
 [delta]
     navigate = true # use n and N to move between diff sections
+    syntax-theme = Catppuccin Mocha
+    minus-style = syntax "#3b2830"
+    minus-emph-style = syntax "#53313b"
+    plus-style = syntax "#2d3f3a"
+    plus-emph-style = syntax "#3a5f52"
+    file-style = "#89b4fa" bold
+    file-decoration-style = "#89b4fa" ul
+    hunk-header-style = file line-number "#89b4fa" bold
+    hunk-header-decoration-style = "#89b4fa" box
+    hunk-header-file-style = "#89b4fa"
+    hunk-header-line-number-style = "#f9e2af"
+    line-numbers-minus-style = "#f38ba8"
+    line-numbers-plus-style = "#a6e3a1"
+    line-numbers-zero-style = "#6c7086"
 [push]
 	autoSetupRemote = true
 [rerere]
