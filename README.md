@@ -43,7 +43,9 @@ brew install zsh-autosuggestions
 ## On WSL:
 ```shell
 sudo apt-get install build-essential
+brew install jq
 ```
+`jq` is required by the tmux-ai-status plugin for JSON parsing (used by both `hook.sh` and `detect.sh`). macOS gets it via Homebrew automatically; WSL needs it installed explicitly.
 Also, edit `/etc/wsl.conf` to include:
 ```
 [user]
