@@ -130,6 +130,7 @@ keymap = [
 	{ on = [ "g", "h" ],       run = "cd ~",                        desc = "Go home" },
 	{ on = [ "g", "k" ],       run = "cd ~/Desktop",                desc = "Go to ~/Desktop" },
 	{ on = [ "g", "l" ],       run = "cd ~/Library",           desc = "Go to ~/Library" },
+	{ on = [ "g", "t" ],       run = "cd ~/.Trash",              desc = "Go to Trash" },
 	{ on = [ "g", "u" ],       run = "cd ~/Developer/utilities", desc = "Go to utilities repo" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive",            desc = "Jump interactively" },
 
