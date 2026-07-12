@@ -47,3 +47,30 @@ gui:
 git:
   pagers:
     - pager: delta --dark --paging=never
+customCommands:
+  # In the files / diff-files panels, split the copyFileInfoToClipboard menu (was y)
+  # into direct keys: y = file name, Y = file path. Custom commands override built-ins.
+  - key: 'y'
+    context: 'files'
+    description: 'Copy file name to clipboard'
+    output: log
+    command: |
+      printf '%s' "$(basename "{{.SelectedFile.Name}}")" | pbcopy && echo 'Copied file name to clipboard'
+  - key: 'Y'
+    context: 'files'
+    description: 'Copy file path to clipboard'
+    output: log
+    command: |
+      printf '%s' "{{.SelectedFile.Name}}" | pbcopy && echo 'Copied file path to clipboard'
+  - key: 'y'
+    context: 'commitFiles'
+    description: 'Copy file name to clipboard'
+    output: log
+    command: |
+      printf '%s' "$(basename "{{.SelectedCommitFile.Name}}")" | pbcopy && echo 'Copied file name to clipboard'
+  - key: 'Y'
+    context: 'commitFiles'
+    description: 'Copy file path to clipboard'
+    output: log
+    command: |
+      printf '%s' "{{.SelectedCommitFile.Name}}" | pbcopy && echo 'Copied file path to clipboard'

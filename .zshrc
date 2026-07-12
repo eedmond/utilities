@@ -174,7 +174,34 @@ fi
 # Setup fzf keybindings and fuzzy completion
 if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
-  export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind='ctrl-j:down,ctrl-k:up'"
+  export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind='ctrl-j:down,ctrl-k:up,ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'"
+
+  # Use fd for file/dir listing when available (respects .gitignore, faster)
+  if command -v fd &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+  fi
+
+  # Previews: bat for files (ctrl-t), eza tree for dirs (alt-c), command echo for history (ctrl-r)
+  command -v bat &>/dev/null && export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers {}'"
+  command -v eza &>/dev/null && export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"
+
+  # git **<TAB>: fuzzy branch/ref picker for ref-taking subcommands, else default path completion
+  _fzf_complete_git() {
+    local tokens=(${(z)LBUFFER})
+    case "$tokens[2]" in
+      checkout|co|switch|sw|branch|merge|rebase|cherry-pick|reset|revert|diff|log|show)
+        _fzf_complete --reverse --multi -- "$@" < <(
+          git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads refs/remotes 2>/dev/null
+        )
+        ;;
+      *)
+        _fzf_path_completion "$prefix" "$@"
+        ;;
+    esac
+  }
 fi
 
 # ── zsh-autosuggestions ─────────────────────────────────────────────────────
@@ -186,7 +213,12 @@ _autosuggest_or_complete() {
   if [[ -n "$POSTDISPLAY" ]]; then
     zle autosuggest-accept
   else
-    zle expand-or-complete
+    # fzf-completion handles the **<TAB> fuzzy trigger, falls back to normal completion otherwise
+    if (( $+functions[fzf-completion] )); then
+      zle fzf-completion
+    else
+      zle expand-or-complete
+    fi
   fi
 }
 zle -N _autosuggest_or_complete
