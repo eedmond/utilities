@@ -90,3 +90,5 @@
     header = "bold" # text
     untracked = "#fab387" # peach
     unmerged = "#cba6f7" # mauve
+[init]
+	defaultBranch = main
