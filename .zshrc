@@ -135,6 +135,12 @@ bindkey "\e[3;6~" kill-line
 # urxvt
 bindkey "\e[3@" kill-line
 
+# ── ctrl+g: edit the command line in nvim ───────────────────────────────────
+autoload -Uz edit-command-line
+zle -N edit-command-line
+### ctrl+g (shadows send-break, which ctrl+c already covers)
+bindkey '^G' edit-command-line
+
 # History
 export HISTFILE=~/.hist_zsh
 export HISTSIZE=100000
