@@ -501,7 +501,7 @@
         "Green Component": 0.8392156862745098,
         "Red Component": 0.803921568627451
       },
-      "Guid": "FC6FDAD9-FF86-4435-89DB-9A7640536AF3",
+      "Guid": "9965971A-EEE5-4A3D-A20F-70B342E6475B",
       "Horizontal Spacing": 1.0,
       "Idle Code": 0,
       "Jobs to Ignore": [
@@ -580,7 +580,7 @@
         "Red Component": 0.9969714283943176
       },
       "Mouse Reporting": true,
-      "Name": "Default",
+      "Name": "Utilities (synced)",
       "Non Ascii Font": "Monaco 12",
       "Non-ASCII Anti Aliased": true,
       "Normal Font": "MesloLGLDZNF-Regular 14",
