@@ -12,7 +12,7 @@
         - Settings -> Keyboard -> Keyboard shortcuts -> swap cmd/option keys
 - Change setting to make each display part of the same desktop
 - Download https://www.nerdfonts.com/font-downloads
-    - Using `MesloLGSNF-Regular`
+    - Using `MesloLGLDZNF-Regular`
     - Open the folder and double click a font and install it
 ```shell
 brew install bat
