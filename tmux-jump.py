@@ -21,7 +21,8 @@ Interaction (leap-style, fully deterministic):
     unambiguous: press a label -> jump; press anything else -> extends the search.
   * Backspace edits the search; Enter jumps to the first match; Esc cancels.
   * On selection we `select-pane` to the match's pane and put the copy-mode
-    cursor on it.
+    cursor on it. When that copy-mode session ends (yank or cancel), focus
+    returns to the pane you started in.
 
 Bound in ~/.tmux.conf as:
   bind / display-popup -B -w 100% -h 100% -E "…/tmux-jump.py"
@@ -208,12 +209,17 @@ def read_key():
     return ("char", b.decode("utf-8", "replace"))
 
 
-def jump(match):
+def jump(match, origin):
     """Focus the match's pane and put the copy-mode cursor on it."""
     pane, row, col = match["pane"], match["row"], match["col"]
     pid = pane["id"]
     tmux("select-pane", "-t", pid)
     tmux("copy-mode", "-t", pid)
+    if pid != origin:
+        # One-shot hook: once this pane leaves copy mode, refocus the origin pane.
+        tmux("set-hook", "-p", "-t", pid, "pane-mode-changed",
+             "if -F '#{pane_in_mode}' '' 'set-hook -pu -t %s pane-mode-changed ; select-pane -t %s'"
+             % (pid, origin))
     tmux("send-keys", "-X", "-t", pid, "top-line")
     tmux("send-keys", "-X", "-t", pid, "start-of-line")
     if row > 0:
@@ -225,6 +231,7 @@ def jump(match):
 def main():
     win_w, win_h, panes = get_window()
     base_rows = build_composite(win_w, win_h, panes)
+    origin = next(p["id"] for p in panes if p["active"])
 
     old = termios.tcgetattr(0)
     tty.setraw(0)
@@ -243,7 +250,7 @@ def main():
                 continue
             if key == "enter":
                 if matches:
-                    jump(matches[0])
+                    jump(matches[0], origin)
                     return
                 continue
 
@@ -263,7 +270,7 @@ def main():
                     sel += k[1]
                     cands = [lb for lb in label_map if lb.startswith(sel)]
                 if sel in label_map:
-                    jump(label_map[sel])
+                    jump(label_map[sel], origin)
                     return
                 continue  # dead-end label; ignore
             search += ch
