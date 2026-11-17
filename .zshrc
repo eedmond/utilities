@@ -194,6 +194,15 @@ if command -v fzf &>/dev/null; then
   command -v eza &>/dev/null && export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
   export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"
 
+  # Flag the pane while fzf runs so tmux's C-hjkl passes through (see .tmux.conf). Widget-spawned
+  # fzf stays in zsh's process group, so tmux's #{pane_current_command} only ever sees "zsh".
+  if [[ -n $TMUX_PANE ]]; then
+    fzf() {
+      tmux set -p -t "$TMUX_PANE" @in_fzf 1
+      { command fzf "$@" } always { tmux set -pu -t "$TMUX_PANE" @in_fzf }
+    }
+  fi
+
   # git **<TAB>: fuzzy branch/ref picker for ref-taking subcommands, else default path completion
   _fzf_complete_git() {
     local tokens=(${(z)LBUFFER})
